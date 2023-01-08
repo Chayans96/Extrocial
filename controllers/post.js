@@ -1,5 +1,4 @@
 //post controller
-
-module.exports.post = function(res,req){
-    return res.end('<h2>Post Controller Called !!</h2>');
+module.exports.post = function(req,res){
+    return res.end('<h1>Extrosial Post is called !!</h1>');
 }
