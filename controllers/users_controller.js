@@ -53,15 +53,5 @@ module.exports.create = function(req,res){
 
 //sign in and create session for the user
 module.exports.createSession = function(req,res){
-        // User.findOne({email:req.body.email}, function(err,user)
-        // {
-        //     if(err){console.log('Error while fetching user details', err); res.redirect('back');}
-
-        //     if(user.password == req.body.password){
-        //         console.log('**************user signed inn *************');
-        //     }
-        //     else{
-        //         console.log('****** wrong password !! ****');
-        //     }
-        // })
+    return res.redirect('/');
 }

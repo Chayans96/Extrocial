@@ -4,7 +4,10 @@ const port = 8000;
 const cookieParser = require('cookie-parser');
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
+const session = require('express-session');
 
+const passport = require('passport');
+const passportLocal = require('./config/passport-local-strategy');
 //by default websites run on port 80
 
 //using cookieparser
@@ -24,12 +27,42 @@ app.use(expressLayouts);
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+//using express session
+app.use(session({
+    //name of cookie
+    name:'extrocial',
+    //secret is used to encrypt and decrypt so it is never shared with anyone
+    secret: 'blahsomething',
+    //if the user is not logged in then if we want to save extra data to cookie then we can set 
+    //save unintialized to true
+    saveUninitialized:false,
+    resave:false,
+    //giveing age to cookie afet which it expires
+    cookie:{
+        //max age should be specified in milli sec
+        maxAge:( 1000*60*100 )
+    }
+}));
+
+//we need to tell app to use passport and passport session
+app.use(passport.initialize());
+app.use(passport.session());
+
+//this is throwing error need to be fixed
+app.use(passport.setAuthenticatedUser);
+
+
+// use express router
+app.use('/', require(`./routes/index`));
+
+
 //setting links and scrypt tag to head and body using layouts
 app.set('layout extractStyles',true);
 app.set('layout extractScripts',true);
 
-// use express router
-app.use('/', require(`./routes/index`));
+
+
+
 
 
 app.listen(port,function(err){
