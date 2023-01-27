@@ -6,8 +6,15 @@ const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 const session = require('express-session');
 
+// const mongoStore = require('connect-mongo')(session);
+
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+
+
+//setting up mongo store it takes session as argument
+const MongoStore = require('connect-mongo');
+
 //by default websites run on port 80
 
 //using cookieparser
@@ -41,7 +48,21 @@ app.use(session({
     cookie:{
         //max age should be specified in milli sec
         maxAge:( 1000*60*100 )
-    }
+    },
+    // store: new MongoStore({
+    //     mongooseConnection: db,
+    //     autoRemove:'disabled',
+    // },function(err){
+    //     console.log(err || 'connect-mongo setup ok');
+    // })
+
+    store:MongoStore.create({ 
+        // client: require("./db") 
+        // clientPromise,
+        // dbName: 'extrocial_development'
+        mongoUrl : 'mongodb://127.0.0.1:27017/extrocial_development'
+    }),
+    
 }));
 
 //we need to tell app to use passport and passport session

@@ -11,6 +11,10 @@ module.exports.profile = function(req,res){
 
 //render sign up page
 module.exports.signUp = function(req,res){
+    //if the user is authenticated then redirect him to profile page 
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');    
+    }
     return res.render('user_sign_up',{
         title: "Extrocial | Sign Up"
     })
@@ -18,6 +22,10 @@ module.exports.signUp = function(req,res){
 
 //render sign in page
 module.exports.signIn = function(req,res){
+    //if the user is authenticated then redirect him to profile page 
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');    
+    }
     return res.render('user_sign_in',{
         title: "Extrocial | Sign In"
     })
@@ -54,4 +62,15 @@ module.exports.create = function(req,res){
 //sign in and create session for the user
 module.exports.createSession = function(req,res){
     return res.redirect('/');
+}
+
+module.exports.destroySession = function(req,res){
+    //logout is passport js inbuild function with the help of which user is loggedout
+       req.logout(function(err){
+            if(err){
+                console.log('Error while loggin out the user ', err );
+            }
+            return res.redirect('/');
+       });
+    //    return res.redirect('/');
 }
