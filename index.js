@@ -5,6 +5,21 @@ const cookieParser = require('cookie-parser');
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 const session = require('express-session');
+const sass = require('sass');
+
+// const connect = require('connect');
+
+// const sassMiddleware = require('node-sass-middleware');
+// app.use(sassMiddleware({
+//       /* Options */
+//       src: '/assets/scss'
+//     , dest: '/assets/css'
+//     , debug: true
+//     , outputStyle: 'expanded'
+//     , prefix:  '/css'  
+//     // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
+//   })
+// );
 
 // const mongoStore = require('connect-mongo')(session);
 

@@ -9,8 +9,28 @@
 <body>
    
     <h1 class="title"><%= title%></h1>
-    <button id="login">Login !!</button>
-    <button >Signup</button>
+    <!-- <button id="login">Login !!</button> -->
+    <!-- <button type="submit" action="/users/sign-up">Signup</button> -->
     <!-- <link src="/js/home.js"> -->
-   </body>
+    <section class="feed-post">
+
+        <% if(locals.user){%>
+        <form action="/posts/create" id="new-post-form" method="POST" >
+            <textarea name="content"  cols="30" rows="10" placeholder="type here..."></textarea>
+            <button type="submit" value="post">POST</button>
+        </form>
+        <%}%>
+        <div id="posts-list-container">
+            <ul>
+                <%for(post of posts) {%>
+                <li>
+                   <p> <%= post.content %> </p>
+                   <p> <%= post.users %> </p>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+
+    </section>
+</body>
 </html>
