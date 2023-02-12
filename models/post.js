@@ -6,14 +6,16 @@ const postSchema = new mongoose.Schema({
         required:true
     },
     user :{
-        type:mongoose.Schema.Types.ObjectId,
+        //type is a reference which should refer to user schema
+        type: mongoose.Schema.Types.ObjectId,
+        // ref is used to refer to schema 
         ref:'User'
     } ,   
     //include array of ids of all comments in this post schema itself
     comments:[
         {
         type:mongoose.Schema.Types.ObjectId,
-        ref:'comment'
+        ref:'Comment'
         }
     ]
     
@@ -22,6 +24,8 @@ const postSchema = new mongoose.Schema({
     timestamps:true
 });
 
+
+//telling this is going to be a model in db 
 const Post = mongoose.model('Post',postSchema);
 
 module.exports = Post;

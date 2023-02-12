@@ -21,4 +21,6 @@ router.post('/post', homeController.post);
 
 router.use('/posts', require('./post'))
 
+router.use('/comments',require('./comments'))
+
 module.exports = router;

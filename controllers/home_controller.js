@@ -14,8 +14,15 @@ module.exports.home = function(req,res){
 
 
     //populate the user with populate property of mongoose
-    post.find({}).populate('user').exec(function(err,posts){
-        console.log(posts.user);
+    post.find({}).populate('user')
+        .populate({
+            path:'comments',
+            populate:{
+                path:'user'
+            }
+        })
+        .exec(function(err,posts){
+        console.log(posts);
         if(err){
             console.log(err)
         }
