@@ -1,11 +1,14 @@
 //post controller
+//IMPORTING POST SCHEMA 
 const Post = require('../models/post');
 const Comment = require('../models/comment');
 
 module.exports.create = function(req,res){
    Post.create({
     content : req.body.content,
-    user : req.body._id,  
+    //changed this line user:req.user._id
+    // passing on the user
+    user : req.user._id,  
 },function(err,post){
     if(err){
         console.log('err while creating post',err);

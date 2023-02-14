@@ -1,3 +1,4 @@
+// importing post schema 
 const Post = require('../models/post');
 // const user = 
 
@@ -14,24 +15,40 @@ module.exports.home = function(req,res){
 
 
     //populate the user with populate property of mongoose
-    Post.find({})
-    .populate('user')
-        .populate({
-            path:'comments',
-            populate:{
-                path:'user'
-            }
-        })
-        .exec(function(err,posts){
-        // console.log(posts);
-        if(err){
-            console.log(err)
-        }
+    // Post.find({})
+    // .populate('user')
+    //     .populate({
+    //         path:'comments',
+    //         populate:{
+    //             path:'user'
+    //         }
+    //     })
+    //     .exec(function(err,posts){
+    //     // console.log(posts);
+    //     if(err){
+    //         console.log(err)
+    //     }
+    //     return res.render('home',{
+    //         title:"Extrocial's Home",
+    //         posts: posts
+    //     })
+    // })
+
+    // Post.find({},function(err,posts){
+    //     // console.log(locals.user);
+    //     return res.render('home',{
+    //         title: "Extrocial's Home",
+    //         posts: posts
+    //     })
+    // })
+
+
+    Post.find({}).populate('user').exec(function(err,posts){
         return res.render('home',{
-            title:"Extrocial's Home",
-            posts: posts
+            title:'Extrocials Home',
+            posts:posts
         })
-    })
+    });
 
 }
 

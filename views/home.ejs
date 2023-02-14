@@ -20,24 +20,19 @@
                 <textarea name="content"  cols="30" rows="10" placeholder="type here..."></textarea>
                 <button type="submit" value="post">POST</button>
             </form>
-        <% } %>
+        <%}%>
         <div id="posts-list-container">
             <ul>
                 <%for(post of posts) {%>
                 <li>
-
-                    
-                    <% if( ( locals.user ) && ( locals.user.id == post.id ) ){ %>
-                    <small>
-                            <script>
-                                console.log('inside if')
-                            </script>
-                        <a href="/posts/destroy/<%= post.id %>">X-delete</a>
-                    </small>
-                    <% } %>
                    <p> <%= post.content %> </p>
                    <!-- post .user is not comming -->
-                   <p> <%= post._id %> </p>
+                    <p> 
+                        <%= post.user %> 
+                    </p>
+                    <p> 
+                        <!-- < post.user.name >  -->
+                    </p>
                    <div class="post-comments">
 
                     <% if(locals.user){ %>
@@ -51,17 +46,17 @@
                     
                      </div>
                <div class="post-comments-list"></div>
-               <ul id=" post-comments-<%=post._id%>">
-                <% for(comment of post.comments){ %>
-                    <p>
-                        <%= comment.content %>
-                        <br>
-                        <small>
-                            <%= comment.user.name %>
-                        </small>
-                    </p>
-                <% } %>
-               </ul>
+               <!-- <ul id=" post-comments-<%=post._id%>">
+                    <% for(comment of post.comments){ %>
+                        <p>
+                            < comment.content >
+                                <br>
+                                <small>
+                                    < comment.user.name > 
+                                </small>
+                        </p>
+                    <% } %>
+               </ul> -->
 
                 </li>
                 <% } %>
