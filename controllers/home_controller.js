@@ -1,5 +1,5 @@
-const post = require('../models/post');
-
+const Post = require('../models/post');
+// const user = 
 
 
 module.exports.home = function(req,res){
@@ -14,7 +14,8 @@ module.exports.home = function(req,res){
 
 
     //populate the user with populate property of mongoose
-    post.find({}).populate('user')
+    Post.find({})
+    .populate('user')
         .populate({
             path:'comments',
             populate:{
@@ -22,7 +23,7 @@ module.exports.home = function(req,res){
             }
         })
         .exec(function(err,posts){
-        console.log(posts);
+        // console.log(posts);
         if(err){
             console.log(err)
         }
@@ -34,10 +35,10 @@ module.exports.home = function(req,res){
 
 }
 
-module.exports.post=function(req,res){
-    console.log(req.body);
-    res.render('home',{title:"Extrocial's Home"})
-}
+// module.exports.post=function(req,res){
+//     console.log(req.body);
+//     res.render('home',{title:"Extrocial's Home"})
+// }
 
 
 

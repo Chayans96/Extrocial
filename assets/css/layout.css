@@ -1,0 +1,16 @@
+/* *{
+font-size: 67%;
+}
+ */
+body {
+  margin: 0;
+  text-align: center;
+  /* align-items: center; */
+  background-color: lightblue;
+}
+
+li {
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=layout.css.map */

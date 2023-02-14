@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "sass": "sass --watch /assets/scss:/assets/css",
+    "sass": "sass --watch ./assets/scss:./assets/css",
     "test": "echo \"No test specified\" && exit 1"
   },
   "keywords": [

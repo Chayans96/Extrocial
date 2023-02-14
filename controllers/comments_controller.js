@@ -1,10 +1,10 @@
 const comment = require('../models/comment');
 //importing post just to validate if there existas a post with the id same as post.id passed with comment 
-const post = require('../models/post');
+const Post = require('../models/post');
 
 module.exports.create = function(req,res){
           //post inside () is the post passed in input tag as hidden 
-    post.findById(req.body.post, function(err,post){
+    Post.findById(req.body.post, function(err,post){
         if(post){
             comment.create({
                 content: req.body.content,
