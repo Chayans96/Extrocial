@@ -1,16 +1,9 @@
-/* *{
-font-size: 67%;
-}
- */
 body {
   margin: 0;
-  text-align: center;
-  /* align-items: center; */
-  background-color: lightblue;
+  /* text-align: center; */
 }
-
-li {
-  text-decoration: none;
+body #layout-main {
+  height: 100%;
 }
 
 /*# sourceMappingURL=layout.css.map */
