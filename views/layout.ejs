@@ -1,24 +1,24 @@
-<html>
-<head>
-    <!-- <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <title></title>
-    <link rel="stylesheet" href="/css/layout.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
-    <%- style %>
-    
-</head>
-<body>
-    <!-- adding header -->
-    <%- include('_header'); -%>
-
-    <!-- adding variable content -->
-    <%- (body);-%>
-
-    <!-- adding footer -->
-    <%- include('_footer'); -%>
-    <%- script %>
-</body>
-</html>
+    <html>
+    <head>
+        <!-- <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+        <title></title>
+        <link rel="stylesheet" href="/css/layout.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/footer.css">
+        <%- style %>
+        
+    </head>
+    <body>
+        <!-- adding header -->
+        <%- include('_header'); -%>
+    <main>
+        <!-- adding variable content -->
+        <%- (body);-%>
+    </main>   
+        <!-- adding footer -->
+        <%- include('_footer'); -%>
+        <%- script %>
+    </body>
+    </html>
