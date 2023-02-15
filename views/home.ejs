@@ -9,7 +9,7 @@
             </script>
            
             <form action="/posts/create" id="new-post-form" method="POST" >
-                <textarea name="content"  cols="30" rows="10" placeholder="type here..."></textarea>
+                <textarea name="content"  cols="30" rows="2" placeholder="type here..."></textarea>
                 <button type="submit" value="post">POST</button>
             </form>
 
@@ -19,21 +19,17 @@
             <ul>
                 <%for(post of posts) {%>
                 <li>
-                        <% if(locals.user && locals.user.id == post.user){ %>
+                    <p>
+                    <% if(locals.user && locals.user.id == post.user.id){ %>
                             <small>
                                 <a href="posts/destroy/<% post.id %>">X</a>
                             </small>
                         <% } %>        
-                    <%= post.content %> 
-                       <!-- post .user is not comming -->
-                    <p> Post.use=>
-                         <%= post.user %> 
-                    </p>
-            
-                    <p> 
-                        <!-- < post.user.name >  -->
-                    </p>
-                  
+                     
+                        <%= post.user.name %> =>
+                        <%= post.content %>
+                    </p> 
+                       
                     <div class="post-comments">
                             <!-- //adding a check so that only people logged in will be able to see the comments form -->
                         <% if(locals.user){ %>
@@ -50,7 +46,7 @@
                         <ul id=" post-comments-<%=post._id%>">
                             <% for(comment of post.comments){ %>
                                 <p>
-                                    <span>Comment content=></span>
+                                    <!-- <span>Comment content=></span> -->
                                     <%= comment.content %>
                                         <br>
                                             <small>
