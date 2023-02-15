@@ -23,3 +23,24 @@ module.exports.create = function(req,res){
         }
     });
     }
+
+    module.exports.destroy = function(req,res){
+        comment.findById(req.params.id,function(err,Comment){
+            if(Comment.user == req.user.id){
+                console.log(Comment)
+                //saving the id of comment so that we can delete it from post-schema also
+                let postid = Comment.post;
+
+                Comment.remove();
+                //updating the post in post schema by pulling comment id with $pull we are pulling comments with params id  
+                Post.findByIdAndUpdate(postid, { $pull: { comments:req.params.id}}, function(err,post){
+                    //as we are not doing anything with the post so returning back.
+                    return res.redirect('back');
+                });
+
+            }else{
+                console.log('inside else')
+                return res.redirect('back');
+            }
+        })
+    }
