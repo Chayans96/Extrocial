@@ -1,16 +1,16 @@
-/* *{
+/**{
 font-size: 67%;
 }
  */
 body {
   margin: 0;
   text-align: center;
-  /* align-items: center; */
+  /* /* align-items: center;  */
   background-color: lightblue;
 }
 
 li {
   list-style: none;
-}
+} 
 
-/*# sourceMappingURL=layout.css.map */
+# sourceMappingURL=layout.css.map

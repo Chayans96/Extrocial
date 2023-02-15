@@ -8,6 +8,6 @@ const postController = require('../controllers/post_controller');
 
 //accessing the actions throgh routes
 router.post('/create', passport.checkAuthentication, postController.create);
-router.get('/destroy/:id',passport.checkAuthentication, postController.destroy);
+router.get('/destroy/:id', passport.checkAuthentication, postController.destroy);
 
 module.exports = router;
