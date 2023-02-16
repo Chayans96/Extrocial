@@ -1,69 +1,41 @@
+    <link rel="stylesheet" href="/css/home.css">
+
     <h1 class="title"><%= title%></h1>
+    <div id="home-container">
+    <section class="feed-post">
+            
+            <% if(locals.user){%>
+                <!-- this check is created so that person who is not signed in will not be able to access the form to create a new post -->
+                <script>
+                    console.log('locals.user found')
+                </script>
+            
+                <form action="/posts/create" id="new-post-form" method="POST" >
+                    <textarea name="content"  cols="30" rows="2" placeholder="type here..."></textarea>
+                    <button type="submit" value="post">POST</button>
+                </form>
 
-<section class="feed-post">
-        
-        <% if(locals.user){%>
-            <!-- this check is created so that person who is not signed in will not be able to access the form to create a new post -->
-            <script>
-                console.log('locals.user found')
-            </script>
-           
-            <form action="/posts/create" id="new-post-form" method="POST" >
-                <textarea name="content"  cols="30" rows="2" placeholder="type here..."></textarea>
-                <button type="submit" value="post">POST</button>
-            </form>
+            <%}%>
 
-        <%}%>
+            <div id="posts-list-container">
+                <ul>
+                    <%for(post of posts) {%>
 
-        <div id="posts-list-container">
-            <ul>
-                <%for(post of posts) {%>
-                <li>
-                    <p>
-                    <% if(locals.user && locals.user.id == post.user.id){ %>
-                            <small>
-                                <a href="posts/destroy/<%= post.id %>">X</a>
-                            </small>
-                        <% } %>        
-                     
-                        <%= post.user.name %> =>
-                        <%= post.content %>
-                    </p> 
-                       
-                    <div class="post-comments">
-                            <!-- //adding a check so that only people logged in will be able to see the comments form -->
-                        <% if(locals.user){ %>
-                            <form action="/comments/create" method="post">
-                                <input type="text" name ="content" placeholder="Comment">
-                                <input type="hidden" name="post" value="<%= post._id %>" > 
-                                <input type="submit" value="Post">
-                            </form>
-                        <% } %>
-                    
-                    </div>
-                    <!-- div to display comments for post -->
-                    <div class="post-comments-list"></div>
-                        <ul id=" post-comments-<%=post._id%>">
-                            <% for(comment of post.comments){ %>
-                                <p>
-                                    <% if(locals.user && locals.user.id == comment.user.id){ %>
-                                        <small>
-                                            <a href="comments/destroy/<%= comment.id 
-                                            %>">X</a>
-                                        </small>
-                                    <% } %>     
-                                    <!-- <span>Comment content=></span> -->
-                                    <%= comment.content %>
-                                        <br>
-                                            <small>
-                                                <span>Commented By -></span>
-                                                <%= comment.user.name %> 
-                                            </small>
-                                </p>
-                            <% } %>
-                        </ul>
-                </li>
-                <% } %>
-            </ul>
-        </div>
-</section>
+                    <!-- including _post.ejs -->    
+                    <%- include('_post') -%>
+
+
+                    <% } %>
+                </ul>
+            </div>
+    </section>
+
+    <section id="user-friends">
+        <h4>Friends</h4>
+        <%for(u of all_users){ %>
+            <p>
+                <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
+            </p>
+            <%}%>
+    </section>
+    </div>

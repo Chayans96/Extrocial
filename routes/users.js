@@ -11,7 +11,8 @@ const usersController = require('../controllers/users_controller');
 // const usersPost = require('../controllers/post');
 
 //as we now have users controller we need to route it 
-router.get('/profile', passport.checkAuthentication ,usersController.profile);
+router.get('/profile/:id', passport.checkAuthentication ,usersController.profile);
+router.post('/update/:id', passport.checkAuthentication, usersController.update);
 // router.get('/profile' ,usersController.profile);
 // router.get('/post', usersPost.post);
 router.get('/sign-up',usersController.signUp);
@@ -24,6 +25,7 @@ router.post('/create-session', passport.authenticate(
     'local',
     {failureRedirect :'/users/sign-in' },)
 ,usersController.createSession);
+
 
 
 //creating route for loggingout
