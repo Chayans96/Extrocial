@@ -6,6 +6,8 @@ const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 const session = require('express-session');
 const sass = require('sass');
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
 
 // const connect = require('connect');
 
@@ -87,7 +89,8 @@ app.use(passport.session());
 //this is throwing error need to be fixed
 app.use(passport.setAuthenticatedUser);
 
-
+app.use(flash());
+app.use(customMware.setFlash);
 // use express router
 app.use('/', require(`./routes/index`));
 

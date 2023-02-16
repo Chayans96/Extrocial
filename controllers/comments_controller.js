@@ -26,16 +26,21 @@ module.exports.create = function(req,res){
 
     module.exports.destroy = function(req,res){
         comment.findById(req.params.id,function(err,Comment){
+            // console.log('comment.user', Comment.user);
+            // console.log('req.user.id',req.user.id);
             if(Comment.user == req.user.id){
+                console.log(Comment)
                 //saving the id of comment so that we can delete it from post-schema also
                 let postid = Comment.post;
 
                 Comment.remove();
+                console.log('remove called');
                 //updating the post in post schema by pulling comment id with $pull we are pulling comments with params id  
-                Post.findByIdAndUpdate(postid, { $pull: { comments:req.params.id}}, function(err,post){
-                    //as we are not doing anything with the post so returning back.
-                    return res.redirect('back');
-                });
+                // Post.findByIdAndUpdate(postid, {$pull: {comments:req.params.id}, function(err,post){
+                //     console.log('inside pull')
+                //     //as we are not doing anything with the post so returning back.
+                //     return res.redirect('back');
+                // }});
 
             }else{
                 console.log('inside else')

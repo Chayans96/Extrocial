@@ -2,40 +2,57 @@
 //IMPORTING POST SCHEMA 
 const Post = require('../models/post');
 const Comment = require('../models/comment');
-
-module.exports.create = function(req,res){
-   Post.create({
+try{
+module.exports.create = async function(req,res){
+  await Post.create({
     content : req.body.content,
     //changed this line user:req.user._id
     // passing on the user
-    user : req.user._id,  
-},function(err,post){
-    if(err){
-        console.log('err while creating post',err);
-        return;
-    }
+    user : req.user._id,    
+});
 
-    return res.redirect('back');
-    });
+return res.redirect('back');
+ 
+}
+}
+catch(err){
+    console.log('err', err);
 }
 
+//                                      //action to delete the post and comments associated with it 
+// module.exports.destroy = function(req,res){
+//                                      //finding post to check if it exists in db or not 
+//     Post.findById(req.params.id, function(err,post){
+//                                      // .id means converting object id into string mongoose gives us this featrure)
+//         if(post.user == req.user.id) // checking if the user deleting the post is the user who has created the post 
+//                                      //post.user will return string id and req.user.id will also return string id 
+//         {
 
-                                     //action to delete the post and comments associated with it 
-module.exports.destroy = function(req,res){
-                                     //finding post to check if it exists in db or not 
-    Post.findById(req.params.id, function(err,post){
-                                     // .id means converting object id into string mongoose gives us this featrure)
-        if(post.user == req.user.id) // checking if the user deleting the post is the user who has created the post 
-                                     //post.user will return string id and req.user.id will also return string id 
-        {
-
-            post.remove();           //
-            Comment.deleteMany({post: req.params.id},function(err){
-                return res.redirect('back');
-            });
-        }else{ 
-                                     //comming into else when post.user != req.user.id
-            return res.redirect('back');
-        }
-    })
+//             post.remove();           //
+//             Comment.deleteMany({post: req.params.id},function(err){
+//                 return res.redirect('back');
+//             });
+//         }else{ 
+//                                      //comming into else when post.user != req.user.id
+//             return res.redirect('back');
+//         }
+//     })
+// }
+try{
+module.exports.destroy = async function(req,res){
+let post = await Post.findById(req.params.id);
+if(post.user == req.user.id)  
+   {
+       post.remove();           //
+       await Comment.deleteMany({post: req.params.id})
+       req.flash('success', 'Post Deleted');
+       return res.redirect('back');
+   }else{ 
+        req.flash('error', 'Post deletion error');
+        return res.redirect('back');
+   }
+}
+}
+catch(err){
+    console.log('Error', err);
 }
