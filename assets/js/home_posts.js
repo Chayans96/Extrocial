@@ -9,12 +9,14 @@
 
             $.ajax({
                 type:'post',
-                url:'./posts/create',
+                url:'/posts/create',
                 data:newPostForm.serialize(),
                 success :function(data){
                     console.log(data);
                     let newPost = newPostDom(data.data.post);
+                    console.log(newPost);
                     $('#post-list-container>ul').prepend(newPost);
+                    deletePost($('.delete-post-button', newPost))
                 },
                 error : function(err){
                     console.lof(err.responseText);
@@ -29,11 +31,12 @@
     // method to create a post in DOM 
 
     let newPostDom = function(post){
-        return $(`<li id="post-${post.id}">
+        return $(`<li id="post-${post._id}">
         <p>
                 <small>
                     <a class="delete=post=button" href="posts/destroy/${post.id}">X</a>
                 </small>   
+                
         <div id="post-list-container">
             <ul>
                 <li>
@@ -49,7 +52,7 @@
             
                 <form action="/comments/create" method="post">
                     <input type="text" name ="content" placeholder="Comment">
-                    <input type="hidden" name="post" value="${post._id}" > 
+                    <input type="hidden" name="post" value="${post.id}" > 
                     <input type="submit" value="Post">
                 </form>
             
@@ -61,5 +64,24 @@
             </ul>
     </li>`)
     }
-    
+
+
+
+    // method to delete a post from dom
+    let deletePost = function(deleteLink){
+        $(deleteLink).click(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type: 'get',
+                url: $(deleteLink).prop('href'),
+                success: function(data){
+                    $(`#id-${data.data.post.id}`).remove();
+                },
+                error: function(err){
+                    console.log(err.responseText);
+                }
+            })
+        })
+    }
 }

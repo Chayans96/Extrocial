@@ -18,7 +18,7 @@ if(req.xhr){
         data: {
             post: post
         },
-        
+
         message:'Post Created'
 
     })
@@ -56,8 +56,20 @@ module.exports.destroy = async function(req,res){
 let post = await Post.findById(req.params.id);
 if(post.user == req.user.id)  
    {
+    if(req.xhr){
+        console.log('delete xhr called');
+        return res.status(200).json({
+            data:{
+                post_id: req.params.id
+            },
+            message: "Post Deleted!!"
+        });
+       }
+
        post.remove();           //
        await Comment.deleteMany({post: req.params.id})
+    //    console.log('below called remove')
+       
        req.flash('success', 'Post Deleted');
        return res.redirect('back');
    }else{ 
