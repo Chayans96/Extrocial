@@ -14,6 +14,8 @@ module.exports.create = async function(req,res){
 
 //ajax req 
 if(req.xhr){
+
+    console.log('inside xhr create')
     return res.status(200).json({
         data: {
             post: post
