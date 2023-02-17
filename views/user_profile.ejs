@@ -1,5 +1,8 @@
     
     <link rel="stylesheet" href="../assets/css/user_profile.css">
+
+
+    <img src="<%= user.avatar%>" alt="<%= user.name %>" width="200 rem" height="200 rem" style="border-radius: 50%;">
     <!-- <nav><button id="sign-out" href="/users/sign-out">Sign Out</button></nav> -->
     <div class="user">
             <p>
@@ -10,9 +13,10 @@
 
             <% if(user.id== profile_user.id){ %>
                 <!-- if uuser matcheds then showing the form else show only profile info -->
-                <form action="/users/update/<%= profile_user.id %>" method="POST">
+                <form action="/users/update/<%= profile_user.id %>" enctype="multipart/form-data" method="POST">
                     <input type="text" name="name" placeholder="Your name" value="<%= profile_user.name %>" required>
                     <input type="email" required placeholder="email" name="email" value="<%= profile_user.email %>">
+                    <input type="file" name="avatar" placeholder="profile picture">
                     <input type="submit" value ="Update">
                 </form>
             <% }else{ %>
