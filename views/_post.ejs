@@ -1,31 +1,33 @@
-<li>
-                    <p>
-                    <% if(locals.user && locals.user.id == post.user.id){ %>
-                            <small>
-                                <a href="posts/destroy/<%= post.id %>">X</a>
-                            </small>
-                        <% } %>        
-                     
-                        <%= post.user.name %> =>
-                        <%= post.content %>
-                    </p> 
-                       
-                    <div class="post-comments">
-                            <!-- //adding a check so that only people logged in will be able to see the comments form -->
-                        <% if(locals.user){ %>
-                            <form action="/comments/create" method="post">
-                                <input type="text" name ="content" placeholder="Comment">
-                                <input type="hidden" name="post" value="<%= post._id %>" > 
-                                <input type="submit" value="Post">
-                            </form>
-                        <% } %>
-                    
-                    </div>
-                    <!-- div to display comments for post -->
-                    <div class="post-comments-list"></div>
-                        <ul id=" post-comments-<%=post._id%>">
-                            <% for(comment of post.comments){ %>
-                                <%- include('_comments') -%>
-                            <% } %>
-                        </ul>
-                </li>
+<li id="post-<%= post.id %>">
+    <p>
+    <% if(locals.user && locals.user.id == post.user.id){ %>
+            <small>
+                <a class="delete=post=button" href="posts/destroy/<%= post.id %>">X</a>
+            </small>
+        <% } %> 
+            <%= post.user.name %> =>
+                    <%= post.content %>
+                
+    </p> 
+    
+    <div class="post-comments">
+            <!-- //adding a check so that only people logged in will be able to see the comments form -->
+        <% if(locals.user){ %>
+            <form action="/comments/create" method="post">
+                <input type="text" name ="content" placeholder="Comment">
+                <input type="hidden" name="post" value="<%= post._id %>" > 
+                <input type="submit" value="Post">
+            </form>
+        <% } %>
+    
+    
+    <!-- div to display comments for post -->
+        <div class="post-comments-list">
+            <ul id=" post-comments-<%=post._id%>">
+                <% for(comment of post.comments){ %>
+                    <%- include('_comments') -%>
+                <% } %>
+            </ul>
+        </div>
+    </div>        
+</li>
