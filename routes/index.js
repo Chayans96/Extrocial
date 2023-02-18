@@ -19,6 +19,7 @@ router.use('/comments',require('./comments'))
 // router.post('/post', homeController.post);
 // router.use('/login', require('./login'));
 
+router.use('/api', require('./api'));
 
 
 module.exports = router;

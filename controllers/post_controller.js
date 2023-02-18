@@ -14,6 +14,8 @@ module.exports.create = async function(req,res){
 
 //ajax req 
 if(req.xhr){
+
+    console.log('inside xhr create')
     return res.status(200).json({
         data: {
             post: post
@@ -51,9 +53,11 @@ catch(err){
 //         }
 //     })
 // }
-try{
+
 module.exports.destroy = async function(req,res){
-let post = await Post.findById(req.params.id);
+try{
+    let post = await Post.findById(req.params.id);
+
 if(post.user == req.user.id)  
    {
        post.remove();           //
@@ -75,7 +79,8 @@ if(post.user == req.user.id)
         return res.redirect('back');
    }
 }
-}
+
 catch(err){
     console.log('Error', err);
+}
 }
