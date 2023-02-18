@@ -53,9 +53,11 @@ catch(err){
 //         }
 //     })
 // }
-try{
+
 module.exports.destroy = async function(req,res){
-let post = await Post.findById(req.params.id);
+try{
+    let post = await Post.findById(req.params.id);
+
 if(post.user == req.user.id)  
    {
        post.remove();           //
@@ -67,7 +69,8 @@ if(post.user == req.user.id)
         return res.redirect('back');
    }
 }
-}
+
 catch(err){
     console.log('Error', err);
+}
 }
